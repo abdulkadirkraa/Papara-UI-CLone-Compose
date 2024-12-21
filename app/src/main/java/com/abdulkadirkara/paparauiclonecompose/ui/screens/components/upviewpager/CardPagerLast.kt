@@ -33,7 +33,7 @@ import com.abdulkadirkara.paparauiclonecompose.R
 
 @Preview(showBackground = true)
 @Composable
-fun CardPagerLastUpdated() {
+fun CardPagerLast() {
     Card(
         modifier = Modifier
             .fillMaxWidth()

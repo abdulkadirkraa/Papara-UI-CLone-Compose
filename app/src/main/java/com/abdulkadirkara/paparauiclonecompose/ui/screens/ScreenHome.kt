@@ -1,17 +1,28 @@
 package com.abdulkadirkara.paparauiclonecompose.ui.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.abdulkadirkara.paparauiclonecompose.R
@@ -19,8 +30,12 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.CustomTopAp
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.Story
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.StoryList
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerCommon
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFifth
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFirst
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFourth
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerLast
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerSecond
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerThird
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -63,47 +78,58 @@ fun ScreenHome(){
             //Card ViewPager
             val pages = listOf(
                 CardPagerFirst(),
-                CardPagerCommon(
-                    drawableIcon = R.drawable.img_precious_metal_header,
-                    titleText = "Kıymetli\nMadenler",
-                    descText = "(Altın, Gümüş, Platin)",
-                    drawableImg = R.drawable.img_no_precious_metal,
-                    btnText = "Kıymetli Madenler Hesabı Aç",
-                ),
-                CardPagerCommon(
-                    drawableIcon = R.drawable.ic_no_saving_header,
-                    titleText = "Birikim Hesabı",
-                    descText = "Hedef belirle, birikim yap.",
-                    drawableImg = R.drawable.img_no_saving,
-                    btnText = "Birikim Hesabı Aç"
-                ),
-                CardPagerCommon(
-                    drawableIcon = R.drawable.img_3,
-                    titleText = "Yatırım Hesabı",
-                    descText = "Hisse senedi al/ sat",
-                    drawableImg = R.drawable.img_no_investment,
-                    btnText = "Gelince Haber Ver"
-                ),
-                CardPagerCommon(
-                    drawableIcon = R.drawable.ic_no_foreign_header,
-                    titleText = "Döviz Hesapları",
-                    descText = "(Dolar, Euro)",
-                    drawableImg = R.drawable.img_no_foreign_currency,
-                    btnText = "Gelince Haber Ver"
-                ),
+                CardPagerSecond(),
+                CardPagerThird(),
+                CardPagerFourth(),
+                CardPagerFifth(),
                 CardPagerLast()
             )
 
-            // HorizontalPager ile sayfaları görüntüle
+            // Setting up Pager State
             val pagerState = rememberPagerState(pageCount = pages.size)
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.wrapContentSize()
-                    .padding(12.dp)
-            ) { page ->
-                pages[page]
+
+            // Horizontal Pager
+            Box {
+                HorizontalPager(
+                    state = pagerState,
+                    modifier = Modifier
+                        .fillMaxWidth() // Set the pager to fill the entire width
+                ) {
+                }
             }
 
+            // Page Indicator
+            PageIndicator(
+                pageCount = pages.size,
+                currentPage = pagerState.currentPage,
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .align(Alignment.CenterHorizontally)
+            )
         }
     }
+}
+
+@Composable
+fun PageIndicator(pageCount: Int, currentPage: Int, modifier: Modifier) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+    ) {
+        repeat(pageCount) {
+            IndicatorDots(isSelected = it == currentPage, modifier = modifier)
+        }
+    }
+}
+
+@Composable
+fun IndicatorDots(isSelected: Boolean, modifier: Modifier) {
+    Box(
+        modifier = modifier
+            .padding(2.dp)
+            .size(10.dp)
+            .clip(CircleShape)
+            .background(if (isSelected) Color(0xff373737) else Color(0xa8373737))
+    )
 }
