@@ -48,9 +48,9 @@ fun CardPagerFirst() {
         modifier = Modifier
             .fillMaxWidth()
             .height(240.dp)
-            .padding(16.dp),
+            .padding(4.dp),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        //elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         colors = CardDefaults.cardColors(containerColor = lightGrayDrawableMenu)
     ) {
         Column(
@@ -109,23 +109,24 @@ fun CardPagerFirst() {
             ) {
                 Text(
                     text = "IBAN ın:",
-                    style = MaterialTheme.typography.bodySmall,
                     fontSize = 10.sp,
-                    fontFamily = investment_medium
+                    fontFamily = investment_medium,
+                    color = Color.Gray
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "TR11 3452 6785 7896 9029 4680 11",
+                    text = "TR57 0082 9000 0949 1658 5344 20",
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontSize = 10.sp,
                         fontFamily = investment_medium
                     ),
                     textDecoration = TextDecoration.Underline,
-                    color = Color.Black
+                    color = Color.DarkGray
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(40.dp))
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -158,7 +159,7 @@ fun CustomButton(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp)) // Yuvarlak köşeleri uygula
-            .background(Color.White) // Beyaz arka plan
+            .background(Color(0xa8fefefe)) // Beyaz arka plan
             .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp)) // Hafif gri kenarlık
     ) {
         Button(

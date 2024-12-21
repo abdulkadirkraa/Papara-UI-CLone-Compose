@@ -32,12 +32,11 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerLast
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerSecond
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerThird
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_black
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 
-
-@OptIn(ExperimentalPagerApi::class)
 @Preview(showSystemUi = true)
 @Composable
 fun ScreenHome() {
@@ -86,33 +85,37 @@ fun HomeScreenStories(){
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HomeScreenVierPagerCards(){
-
-
-    // Setting up Pager State
+fun HomeScreenVierPagerCards() {
+    // Pager state oluştur
     val pagerState = rememberPagerState(pageCount = 6)
 
-    // Horizontal Pager
-    Box(modifier = Modifier.wrapContentSize()) {
+    // HorizontalPager yapılandırması
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
-                .wrapContentSize()
-                .padding(12.dp)
+                .fillMaxWidth()
         ) { page ->
-            // Her bir sayfada farklı bir içerik gösterelim
-            when(page){
-                0 -> CardPagerFirst()
-                1 -> CardPagerSecond()
-                2 -> CardPagerThird()
-                3 -> CardPagerFourth()
-                4 -> CardPagerFifth()
-                5 -> CardPagerLast()
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.86f) // Her elemanın genişliğini azaltarak kenarların görünmesini sağla
+            ) {
+                when (page) {
+                    0 -> CardPagerFirst()
+                    1 -> CardPagerSecond()
+                    2 -> CardPagerThird()
+                    3 -> CardPagerFourth()
+                    4 -> CardPagerFifth()
+                    5 -> CardPagerLast()
+                }
             }
         }
     }
 
-    // Page Indicator
+    // Sayfa gösterge noktaları (indicator)
     PageIndicator(
         pageCount = 6,
         currentPage = pagerState.currentPage,
@@ -141,6 +144,6 @@ fun IndicatorDots(isSelected: Boolean, modifier: Modifier) {
             .padding(2.dp)
             .size(10.dp)
             .clip(CircleShape)
-            .background(if (isSelected) Color(0xff373737) else Color(0xa8373737))
+            .background(if (isSelected) papara_black else Color.LightGray)
     )
 }
