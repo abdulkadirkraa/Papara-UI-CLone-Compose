@@ -34,7 +34,7 @@ fun CustomTopAppBar() {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
-            .padding(horizontal = 12.dp, vertical = 24.dp),
+            .padding(start = 12.dp, end = 12.dp, top = 24.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
