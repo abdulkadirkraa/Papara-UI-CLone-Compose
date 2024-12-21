@@ -37,3 +37,7 @@ val Typography = Typography(
 
 //Fontlarım
 val papara_regular = FontFamily(Font(R.font.papara_regular))
+val investment_medium = FontFamily(Font(R.font.investment_medium))
+val investment_bold = FontFamily(Font(R.font.investment_bold))
+val investment_semibold = FontFamily(Font(R.font.investment_semi_bold))
+val investment_regular = FontFamily(Font(R.font.investment_regular))

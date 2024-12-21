@@ -11,3 +11,5 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val lightGrayDrawableMenu = Color(0xFFDDDDDD)
+val papara_black = Color(0xFFff202326)
+val pager_stroke = Color(0xFFDDDDDD)
