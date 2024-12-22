@@ -37,6 +37,7 @@ import com.abdulkadirkara.paparauiclonecompose.R
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_medium
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_semibold
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.lightGrayDrawableMenu
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.very_light_gray
 
 @Preview(showBackground = true)
 @Composable
@@ -44,10 +45,10 @@ fun CardPagerFifth() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(240.dp)
+            .height(220.dp)
             .padding(4.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = lightGrayDrawableMenu)
+        colors = CardDefaults.cardColors(containerColor = very_light_gray)
     ) {
         Column(
             modifier = Modifier
@@ -81,10 +82,8 @@ fun CardPagerFifth() {
                     // Title
                     Text(
                         text = "Döviz\nHesapları",
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            fontFamily = investment_semibold,
-                            fontSize = 16.sp
-                        ),
+                        fontFamily = investment_semibold,
+                        fontSize = 24.sp,
                         color = Color.Black
                     )
 
@@ -93,10 +92,9 @@ fun CardPagerFifth() {
                     // Description
                     Text(
                         text = "(Dolar, Euro)",
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            fontFamily = investment_medium,
-                            fontSize = 12.sp
-                        ),
+                        fontFamily = investment_medium,
+                        fontSize = 11.sp,
+                        color = Color.Gray
                     )
                 }
 
@@ -109,56 +107,13 @@ fun CardPagerFifth() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            CustomButtonCardFifth(
+            CustomButton(
                 onClick = { /* İşlem */ },
                 buttonText = "Gelince Haber Ver",
                 drawableEnd = R.drawable.abc_ic_go_search_api_material,
-
             )
-        }
-    }
-}
-
-@Composable
-fun CustomButtonCardFifth(
-    onClick: () -> Unit,
-    buttonText: String,
-    @DrawableRes drawableEnd: Int,
-) {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp)) // Yuvarlak köşeleri uygula
-            .background(Color(0xa8fefefe)) // Beyaz arka plan
-            .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp)) // Hafif gri kenarlık
-    ) {
-        Button(
-            onClick = onClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            contentPadding = PaddingValues(12.dp),
-            shape = RoundedCornerShape(8.dp) // Yuvarlak köşe için aynı şekil
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = buttonText,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black,
-                    modifier = Modifier.weight(1f)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Image(
-                    painter = painterResource(id = drawableEnd),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
         }
     }
 }

@@ -33,24 +33,17 @@ import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_bold
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_medium
 
 @Composable
-fun TransactionList(
-    img: Int,
-    textTitle: String,
-    textDescription: String,
-    textMoney: String,
-    textMoneyColor: Color,
-    textDate: String
-) {
+fun TransactionList(transactionModel: TransactionModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp) // Yüksekliği artırarak daha ferah bir görünüm sağlıyoruz.
+            .height(60.dp) // Yüksekliği artırarak daha ferah bir görünüm sağlıyoruz.
             .padding(horizontal = 16.dp), // Sağ ve soldan iç boşluk ekliyoruz.
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Profil Görseli
         Image(
-            painter = painterResource(img),
+            painter = painterResource(transactionModel.imgRes),
             contentDescription = null,
             contentScale = ContentScale.Fit,
             modifier = Modifier
@@ -65,20 +58,24 @@ fun TransactionList(
         // Metin Bölgesi
         Column(
             modifier = Modifier.weight(1f), // Metinlerin genişliği, kalan alanı kaplayacak.
-            verticalArrangement = Arrangement.SpaceAround
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = textTitle,
+                text = transactionModel.textTitle,
                 fontFamily = investment_bold,
                 fontSize = 15.sp,
                 color = Color.Black,
-                modifier = Modifier.padding(2.dp)
+                //modifier = Modifier.padding(2.dp),
+                lineHeight = 15.sp
             )
+            Spacer(Modifier.height(2.dp))
             Text(
-                text = textDescription,
+                text = transactionModel.textDescription,
                 fontFamily = investment_medium,
                 fontSize = 12.sp, // Daha okunabilir bir font boyutu.
                 color = Color.DarkGray,
+                lineHeight = 12.sp
 
             )
         }
@@ -86,20 +83,23 @@ fun TransactionList(
         // Sağ Tarafta Para ve Tarih Bilgisi
         Column(
             horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.SpaceAround
+            verticalArrangement = Arrangement.Bottom
         ) {
             Text(
-                text = textMoney,
+                text = transactionModel.textMoney,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = textMoneyColor,
-                modifier = Modifier.padding(2.dp)
+                color = transactionModel.textMoneyColor,
+                //modifier = Modifier.padding(2.dp),
+                lineHeight = 16.sp
             )
+            Spacer(Modifier.height(4.dp))
             Text(
-                text = textDate,
+                text = transactionModel.textDate,
                 fontFamily = investment_medium,
                 color = Color.DarkGray,
-                fontSize = 12.sp
+                fontSize = 12.sp,
+                lineHeight = 12.sp
             )
         }
     }
@@ -108,7 +108,7 @@ fun TransactionList(
 data class TransactionModel(
     val imgRes: Int,
     val textTitle: String,
-    val textDescriotion: String,
+    val textDescription: String,
     val textMoney: String,
     val textMoneyColor : Color,
     val textDate: String

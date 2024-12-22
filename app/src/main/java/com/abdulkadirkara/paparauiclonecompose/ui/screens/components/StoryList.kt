@@ -26,12 +26,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.pager_stroke
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_regular
 
 @Composable
 fun StoryList(stories: List<Story>) {
     // Her hikayenin tıklama durumunu takip eden liste
-    val selectedStoryStates = remember { mutableStateListOf<Boolean>().apply { repeat(stories.size) { add(false) } } }
+    val selectedStoryStates =
+        remember { mutableStateListOf<Boolean>().apply { repeat(stories.size) { add(false) } } }
     val sortedStories = remember { stories.toMutableList() } // Hikayeleri sıralı tut
 
     LazyRow(
@@ -54,13 +56,15 @@ fun StoryList(stories: List<Story>) {
                         // Tıklanan hikayenin durumunu değiştir
                         selectedStoryStates[index] = !isSelected
 
-                        // Eğer tıklanıyorsa liste sonuna taşı
+                        // Eğer hikaye seçildiyse, onu listenin sonuna taşıyoruz
                         if (!isSelected) {
-                            sortedStories.removeAt(index).also { storyToMove ->
-                                sortedStories.add(storyToMove) // Liste sonuna ekle
-                                selectedStoryStates.removeAt(index)
-                                selectedStoryStates.add(true) // Sonuna ekle
-                            }
+                            sortedStories
+                                .removeAt(index)
+                                .also { storyToMove ->
+                                    sortedStories.add(storyToMove)
+                                    selectedStoryStates.removeAt(index)
+                                    selectedStoryStates.add(true)
+                                }
                         }
                     }
             ) {
@@ -74,6 +78,7 @@ fun StoryList(stories: List<Story>) {
 
 @Composable
 fun StoryImage(imageRes: Int, isSelected: Boolean) {
+    // Resmi eklerken, seçili olup olmadığını kontrol ederek kenarlık rengini ayarlıyoruz
     Image(
         painter = painterResource(id = imageRes),
         contentDescription = null,
@@ -83,7 +88,7 @@ fun StoryImage(imageRes: Int, isSelected: Boolean) {
             .clip(CircleShape)
             .border(
                 2.dp,
-                color = if (isSelected) Color.LightGray else Color.Black,
+                color = if (isSelected) pager_stroke else Color.Black,
                 CircleShape
             )
     )

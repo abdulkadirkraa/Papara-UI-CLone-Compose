@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,6 +38,7 @@ import com.abdulkadirkara.paparauiclonecompose.R
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_medium
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_semibold
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.lightGrayDrawableMenu
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.very_light_gray
 
 @Preview(showBackground = true)
 @Composable
@@ -44,11 +46,11 @@ fun CardPagerSecond() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(240.dp)
+            .height(220.dp)
             .padding(4.dp),
         shape = RoundedCornerShape(12.dp),
         //elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = lightGrayDrawableMenu)
+        colors = CardDefaults.cardColors(containerColor = very_light_gray)
     ) {
         Column(
             modifier = Modifier
@@ -82,10 +84,8 @@ fun CardPagerSecond() {
                     // Title
                     Text(
                         text = "Kıymetli\nMadenler",
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            fontFamily = investment_semibold,
-                            fontSize = 16.sp
-                        ),
+                        fontFamily = investment_semibold,
+                        fontSize = 24.sp,
                         color = Color.Black
                     )
 
@@ -94,10 +94,9 @@ fun CardPagerSecond() {
                     // Description
                     Text(
                         text = "(Altın, Gümüş, Platin)",
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            fontFamily = investment_medium,
-                            fontSize = 12.sp
-                        ),
+                        fontFamily = investment_medium,
+                        fontSize = 11.sp,
+                        color = Color.Gray
                     )
                 }
 
@@ -110,55 +109,13 @@ fun CardPagerSecond() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            CustomButtonCardSecond(
+            CustomButton(
                 onClick = { /* İşlem */ },
                 buttonText = "Kıymetli Madenler Hesabı Aç",
                 drawableEnd = R.drawable.abc_ic_go_search_api_material,
             )
-        }
-    }
-}
-
-@Composable
-fun CustomButtonCardSecond(
-    onClick: () -> Unit,
-    buttonText: String,
-    @DrawableRes drawableEnd: Int,
-) {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp)) // Yuvarlak köşeleri uygula
-            .background(Color(0xa8fefefe)) // Beyaz arka plan
-            .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp)) // Hafif gri kenarlık
-    ) {
-        Button(
-            onClick = onClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            contentPadding = PaddingValues(12.dp),
-            shape = RoundedCornerShape(8.dp) // Yuvarlak köşe için aynı şekil
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = buttonText,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Black,
-                    modifier = Modifier.weight(1f)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Image(
-                    painter = painterResource(id = drawableEnd),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
         }
     }
 }

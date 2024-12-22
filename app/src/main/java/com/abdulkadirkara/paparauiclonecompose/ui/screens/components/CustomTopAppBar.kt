@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -81,7 +80,7 @@ fun CustomTopAppBar() {
             .fillMaxWidth()
             .background(Color.White)
             //bottom padding vermedim çünkü hikayelerde ayarlamak için
-            .padding(start = 12.dp, end = 12.dp, top = 24.dp),
+            .padding(start = 12.dp, end = 12.dp, top = 20.dp, bottom = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

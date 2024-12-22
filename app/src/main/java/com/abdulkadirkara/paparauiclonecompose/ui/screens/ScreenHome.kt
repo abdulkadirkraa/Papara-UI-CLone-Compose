@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -55,14 +56,21 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerLast
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerSecond
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerThird
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.dots_fray_color
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.lightGrayDrawableMenu
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.money_green
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.money_red
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.pades_illustration_pink
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.pager_stroke
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_black
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_bold
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_regular
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.very_light_gray
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.rememberPagerState
+import kotlin.math.absoluteValue
 
 @Preview(showSystemUi = true)
 @Composable
@@ -88,7 +96,7 @@ fun ScreenHome() {
             HomeScreenStories()
 
             //Card ViewPager
-            HomeScreenVierPagerCards()
+            HomeScreenViewPagerCards()
 
             //Hesap Hareketleri Text ve Transaction'lar
             HomeScreenTransaction()
@@ -164,19 +172,8 @@ fun HomeScreenCashback() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(start = 12.dp, top = 12.dp)
         ) {
-            Text(
-                text = "CASHBACK",
-                fontFamily = papara_regular,
-                fontSize = 11.sp,
-                modifier = Modifier.padding(end = 4.dp),
-                textAlign = TextAlign.Center,
-                color = Color.Black,
-                overflow = TextOverflow.Ellipsis
-            )
-            Image(
-                painter = painterResource(id = R.drawable.arrow_right_drawable),
-                contentDescription = "Arrow Icon"
-            )
+            CustomTransactionAndCashbackHeader("CASHBACK")
+            Spacer(Modifier.height(8.dp))
         }
 
         Card(
@@ -184,7 +181,7 @@ fun HomeScreenCashback() {
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp),
             shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(containerColor = lightGrayDrawableMenu)
+            colors = CardDefaults.cardColors(containerColor = very_light_gray)
         ) {
             Column(
                 modifier = Modifier
@@ -208,8 +205,7 @@ fun HomeScreenCashback() {
 
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -239,7 +235,7 @@ fun HomeScreenCashback() {
                         modifier = Modifier
                             .height(3.dp)
                             .fillMaxWidth()
-                            .background(Color.Gray)
+                            .background(pager_stroke)
                     )
 
                     // Resim (Dinamik Konum)
@@ -253,7 +249,7 @@ fun HomeScreenCashback() {
                                 .offset(
                                     x = (boxWidth * positionFraction) - 20.dp // Ortalamak için yarıçap çıkarılır
                                 )
-                                .background(color = Color.LightGray, shape = CircleShape)
+                                .background(color = very_light_gray, shape = CircleShape)
                         )
                     }
                 }
@@ -269,41 +265,51 @@ fun HomeScreenTransaction() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(start = 12.dp, top = 12.dp)
         ) {
-            // Text with drawable at the end
-            Text(
-                text = "HESAP HAREKETLERİ",
-                fontFamily = papara_regular,
-                fontSize = 11.sp,
-                modifier = Modifier.padding(end = 4.dp),
-                textAlign = TextAlign.Center,
-                color = Color.Black,
-                overflow = TextOverflow.Ellipsis
-            )
-            // Drawable (icon) at the end
-            Image(
-                painter = painterResource(id = R.drawable.arrow_right_drawable),
-                contentDescription = "Arrow Icon"
-            )
+            CustomTransactionAndCashbackHeader("HESAP HAREKETLERİ")
         }
 
         // Transaction listesi
         TransactionList(
-            img = R.drawable.ic_papara_cashback,
-            textTitle = "Spotify",
-            textDescription = "Papara Cashback",
-            textMoney = "₺20,00",
-            textMoneyColor = Color.Green,
-            textDate = "22 Aralık 2024 17:50"
+            TransactionModel(
+                imgRes = R.drawable.ic_papara_cashback,
+                textTitle = "Spotify",
+                textDescription = "Papara Cashback",
+                textMoney = "₺20,00",
+                textMoneyColor = money_green,
+                textDate = "22 Aralık 2024 17:50"
+            )
         )
         TransactionList(
-            img = R.drawable.ic_spotify,
-            textTitle = "Spotify",
-            textDescription = "Papara Card",
-            textMoney = "₺59,99",
-            textMoneyColor = Color.Red,
-            textDate = "22 Aralık 2024 17:50"
+            TransactionModel(
+                imgRes = R.drawable.ic_spotify,
+                textTitle = "Spotify",
+                textDescription = "Papara Card",
+                textMoney = "₺59,99",
+                textMoneyColor = money_red,
+                textDate = "22 Aralık 2024 17:50"
+            )
         )
     }
+}
+
+@Composable
+fun CustomTransactionAndCashbackHeader(title: String){
+    // Text with drawable at the end
+    Text(
+        text = title,
+        fontFamily = papara_regular,
+        color = Color.DarkGray,
+        fontSize = 11.sp,
+        modifier = Modifier.padding(end = 4.dp),
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis
+    )
+    Spacer(Modifier.width(4.dp))
+    // Drawable (icon) at the end
+    Image(
+        painter = painterResource(id = R.drawable.arrow_right_drawable),
+        contentDescription = "Arrow Icon"
+    )
 }
 
 @Composable
@@ -318,13 +324,12 @@ fun HomeScreenStories(){
         Story(R.drawable.img_1, "Kıymetli\nMadenler"),
         Story(R.drawable.img_wrap_up_papara_iban, "Aylık Özet"),
     )
-
     StoryList(stories = storyList)
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HomeScreenVierPagerCards() {
+fun HomeScreenViewPagerCards() {
     // Pager state oluştur
     val pagerState = rememberPagerState(pageCount = 6)
 
@@ -372,6 +377,7 @@ fun PageIndicator(pageCount: Int, currentPage: Int, modifier: Modifier) {
     ) {
         repeat(pageCount) {
             IndicatorDots(isSelected = it == currentPage, modifier = modifier)
+            Spacer(Modifier.width(4.dp))
         }
     }
 }
@@ -381,8 +387,8 @@ fun IndicatorDots(isSelected: Boolean, modifier: Modifier) {
     Box(
         modifier = modifier
             .padding(2.dp)
-            .size(10.dp)
+            .size(6.dp)
             .clip(CircleShape)
-            .background(if (isSelected) papara_black else Color.LightGray)
+            .background(if (isSelected) Color.Black else dots_fray_color)
     )
 }
