@@ -1,5 +1,6 @@
 package com.abdulkadirkara.paparauiclonecompose.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,21 +12,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.abdulkadirkara.paparauiclonecompose.R
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.CustomTopAppBar
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.Story
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.StoryList
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.TransactionList
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.TransactionModel
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFifth
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFirst
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFourth
@@ -33,6 +44,7 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerSecond
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerThird
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_black
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_regular
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -62,8 +74,56 @@ fun ScreenHome() {
 
             //Card ViewPager
             HomeScreenVierPagerCards()
+
+            //Hesap Hareketleri Text ve Transaction'lar
+            HomeScreenTransaction()
             
         }
+    }
+}
+
+@Composable
+fun HomeScreenTransaction() {
+    Column {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 12.dp, top = 12.dp)
+        ) {
+            // Text with drawable at the end
+            Text(
+                text = "HESAP HAREKETLERİ",
+                fontFamily = papara_regular,
+                fontSize = 11.sp,
+                modifier = Modifier.padding(end = 4.dp),
+                textAlign = TextAlign.Center,
+                color = Color.Black,
+                overflow = TextOverflow.Ellipsis
+            )
+            // Drawable (icon) at the end
+            Image(
+                painter = painterResource(id = R.drawable.arrow_right_drawable),
+                contentDescription = "Arrow Icon"
+            )
+        }
+
+        // Transaction listesi
+
+        TransactionList(
+            img = R.drawable.ic_papara_cashback,
+            textTitle = "Spotify",
+            textDescription = "Papara Cashback",
+            textMoney = "₺20,00",
+            textMoneyColor = Color.Green,
+            textDate = "22 Aralık 2024 17:50"
+        )
+        TransactionList(
+            img = R.drawable.ic_spotify,
+            textTitle = "Spotify",
+            textDescription = "Papara Card",
+            textMoney = "₺59,99",
+            textMoneyColor = Color.Red,
+            textDate = "22 Aralık 2024 17:50"
+        )
     }
 }
 
