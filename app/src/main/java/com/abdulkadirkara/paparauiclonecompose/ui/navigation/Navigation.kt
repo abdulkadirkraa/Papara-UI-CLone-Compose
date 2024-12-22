@@ -12,9 +12,9 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.ScreenPayments
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.ScreenQrTransactions
 
 @Composable
-fun Navigation(){
+fun Navigation(chosenScreen: String){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screens.ScreenHome.route) {
+    NavHost(navController = navController, startDestination = chosenScreen) {
         composable(route = Screens.ScreenHome.route){
             ScreenHome()
         }

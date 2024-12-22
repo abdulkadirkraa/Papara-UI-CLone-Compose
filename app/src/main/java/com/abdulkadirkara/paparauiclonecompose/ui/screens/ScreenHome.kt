@@ -78,7 +78,7 @@ fun ScreenHome() {
     ) { paddingValues ->
         Column(
             modifier = Modifier
-                .padding(paddingValues)
+                .padding(top = paddingValues.calculateTopPadding())
                 .fillMaxSize()
                 .background(Color.White)
                 .verticalScroll(scrollState),

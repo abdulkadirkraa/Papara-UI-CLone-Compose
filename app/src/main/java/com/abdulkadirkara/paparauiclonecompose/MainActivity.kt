@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.abdulkadirkara.paparauiclonecompose.ui.navigation.Navigation
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.BottomNavigationBar
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.PaparaUICloneComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PaparaUICloneComposeTheme {
-                Navigation()
+                BottomNavigationBar()
             }
         }
     }
