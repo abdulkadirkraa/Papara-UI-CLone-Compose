@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,11 +32,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,6 +56,7 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerSecond
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerThird
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.lightGrayDrawableMenu
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.pades_illustration_pink
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_black
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_bold
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_regular
@@ -90,7 +95,58 @@ fun ScreenHome() {
 
             //Cashback text ve card'ı
             HomeScreenCashback()
+
+            //Arkadaşlarını davet et card'ı
+            HomeScreenInviteFriendsCard()
             
+        }
+    }
+}
+
+@Composable
+fun HomeScreenInviteFriendsCard() {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = pades_illustration_pink)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min) // Row'un yüksekliğini içeriğe göre ayarlıyoruz
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight() // Tüm dikey alanı doldur
+                    .padding(start = 12.dp, top = 12.dp, bottom = 12.dp),
+                verticalArrangement = Arrangement.SpaceBetween, // Textler biri üstte, biri altta olacak
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = "Arkadaşını Davet Et,\nBirlikte Kazan",
+                    fontFamily = papara_bold,
+                    color = Color.Black,
+                    fontSize = 15.sp
+                )
+                Text(
+                    text = "Detaylı Bilgi",
+                    fontFamily = papara_regular,
+                    color = Color.Black,
+                    fontSize = 13.sp,
+                    textDecoration = TextDecoration.Underline
+                )
+            }
+            Image(
+                painter = painterResource(R.drawable.img_wrap_up_gift),
+                contentDescription = "",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .align(Alignment.CenterVertically)
+                    .padding(end = 12.dp) // Görsel için boşluk
+            )
         }
     }
 }
