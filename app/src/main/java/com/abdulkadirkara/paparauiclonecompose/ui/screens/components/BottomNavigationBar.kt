@@ -4,11 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -47,7 +43,12 @@ fun BottomNavigationBar() {
                         NavigationBarItem(
                             selected = false,
                             onClick = { choosenItem.value = index },
-                            icon = { Image(painter = painterResource(bottomNavItem.iconRes), contentDescription = "") },
+                            icon = {
+                                Image(
+                                    painter = painterResource(bottomNavItem.iconRes),
+                                    contentDescription = ""
+                                )
+                            },
                             label = {
                                 Text(
                                     fontSize = 10.sp,
@@ -55,7 +56,10 @@ fun BottomNavigationBar() {
                                     style = if (choosenItem.value == index) {
                                         TextStyle(fontWeight = FontWeight.Bold, color = Color.Black)
                                     } else {
-                                        TextStyle(fontWeight = FontWeight.Normal, color = Color.Gray)
+                                        TextStyle(
+                                            fontWeight = FontWeight.Normal,
+                                            color = Color.Gray
+                                        )
                                     }
                                 )
                             }

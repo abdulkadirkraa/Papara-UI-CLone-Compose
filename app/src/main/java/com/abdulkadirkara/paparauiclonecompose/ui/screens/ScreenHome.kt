@@ -32,12 +32,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -50,27 +46,20 @@ import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.Story
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.StoryList
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.TransactionList
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.TransactionModel
-import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFifth
+import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerCommon
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFirst
-import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerFourth
 import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerLast
-import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerSecond
-import com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager.CardPagerThird
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.dots_fray_color
-import com.abdulkadirkara.paparauiclonecompose.ui.theme.lightGrayDrawableMenu
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.money_green
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.money_red
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.pades_illustration_pink
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.pager_stroke
-import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_black
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_bold
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.papara_regular
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.very_light_gray
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerScope
 import com.google.accompanist.pager.rememberPagerState
-import kotlin.math.absoluteValue
 
 @Preview(showSystemUi = true)
 @Composable
@@ -106,7 +95,7 @@ fun ScreenHome() {
 
             //Arkadaşlarını davet et card'ı
             HomeScreenInviteFriendsCard()
-            
+
         }
     }
 }
@@ -268,8 +257,7 @@ fun HomeScreenTransaction() {
             CustomTransactionAndCashbackHeader("HESAP HAREKETLERİ")
         }
 
-        // Transaction listesi
-        TransactionList(
+        val transactions = listOf(
             TransactionModel(
                 imgRes = R.drawable.ic_papara_cashback,
                 textTitle = "Spotify",
@@ -277,9 +265,7 @@ fun HomeScreenTransaction() {
                 textMoney = "₺20,00",
                 textMoneyColor = money_green,
                 textDate = "22 Aralık 2024 17:50"
-            )
-        )
-        TransactionList(
+            ),
             TransactionModel(
                 imgRes = R.drawable.ic_spotify,
                 textTitle = "Spotify",
@@ -289,11 +275,15 @@ fun HomeScreenTransaction() {
                 textDate = "22 Aralık 2024 17:50"
             )
         )
+
+        for (i in transactions.indices){
+            TransactionList(transactions[i])
+        }
     }
 }
 
 @Composable
-fun CustomTransactionAndCashbackHeader(title: String){
+fun CustomTransactionAndCashbackHeader(title: String) {
     // Text with drawable at the end
     Text(
         text = title,
@@ -313,7 +303,7 @@ fun CustomTransactionAndCashbackHeader(title: String){
 }
 
 @Composable
-fun HomeScreenStories(){
+fun HomeScreenStories() {
     val storyList = listOf(
         Story(R.drawable.img_wrap_up_papara_cachback, "Cashback"),
         Story(R.drawable.img, "Duyurular"),
@@ -349,10 +339,46 @@ fun HomeScreenViewPagerCards() {
             ) {
                 when (page) {
                     0 -> CardPagerFirst()
-                    1 -> CardPagerSecond()
-                    2 -> CardPagerThird()
-                    3 -> CardPagerFourth()
-                    4 -> CardPagerFifth()
+                    1 -> {
+                        CardPagerCommon(
+                            iconImg = R.drawable.img_precious_metal_header,
+                            titleText = "Kıymetli Madenler",
+                            descText = "(Altın, Gümüş, Platin)",
+                            imgRes = R.drawable.img_no_precious_metal,
+                            btnText = "Kıymetli Madenler Hesabı Aç",
+                            btnIcon = R.drawable.abc_ic_go_search_api_material
+                        )
+                    }
+                    2 -> {
+                        CardPagerCommon(
+                            iconImg = R.drawable.ic_no_saving_header,
+                            titleText = "Birikim Hesabı",
+                            descText = "Hedef belirle, birikim yap",
+                            imgRes = R.drawable.img_no_saving,
+                            btnText = "Birikim Hesabı Aç",
+                            btnIcon = R.drawable.abc_ic_go_search_api_material
+                        )
+                    }
+                    3 -> {
+                        CardPagerCommon(
+                            iconImg = R.drawable.img_3,
+                            titleText = "Yatırım Hesabı",
+                            descText = "Hisse senedi al/ sat",
+                            imgRes = R.drawable.img_no_investment,
+                            btnText = "Gelince Haber Ver",
+                            btnIcon = R.drawable.ic_investment_notification_black
+                        )
+                    }
+                    4 -> {
+                        CardPagerCommon(
+                            iconImg = R.drawable.ic_no_foreign_header,
+                            titleText = "Döviz Hesapları",
+                            descText = "(Dolar, Euro)",
+                            imgRes = R.drawable.img_no_foreign_currency,
+                            btnText = "Gelince Haber Ver",
+                            btnIcon = R.drawable.ic_investment_notification_black
+                        )
+                    }
                     5 -> CardPagerLast()
                 }
             }

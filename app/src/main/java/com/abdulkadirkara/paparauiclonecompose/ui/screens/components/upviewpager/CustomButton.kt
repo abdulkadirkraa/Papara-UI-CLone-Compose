@@ -46,7 +46,7 @@ fun CustomButton(
                 .fillMaxWidth()
                 .height(IntrinsicSize.Min),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            contentPadding = PaddingValues(12.dp),
+            contentPadding = PaddingValues(8.dp),
             shape = RoundedCornerShape(8.dp) // Yuvarlak köşe için aynı şekil
         ) {
             Row(
@@ -63,7 +63,7 @@ fun CustomButton(
                 Spacer(modifier = Modifier.width(8.dp))
                 Image(
                     painter = painterResource(id = drawableEnd),
-                    contentDescription = null,
+                    contentDescription = "",
                 )
             }
         }

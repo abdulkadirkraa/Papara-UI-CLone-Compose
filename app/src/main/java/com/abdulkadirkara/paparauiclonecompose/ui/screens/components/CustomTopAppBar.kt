@@ -79,7 +79,6 @@ fun CustomTopAppBar() {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
-            //bottom padding vermedim çünkü hikayelerde ayarlamak için
             .padding(start = 12.dp, end = 12.dp, top = 20.dp, bottom = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

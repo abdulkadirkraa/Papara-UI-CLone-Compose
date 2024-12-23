@@ -1,46 +1,41 @@
 package com.abdulkadirkara.paparauiclonecompose.ui.screens.components.upviewpager
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.abdulkadirkara.paparauiclonecompose.R
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_medium
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.investment_semibold
+import com.abdulkadirkara.paparauiclonecompose.ui.theme.lightGrayDrawableMenu
 import com.abdulkadirkara.paparauiclonecompose.ui.theme.very_light_gray
 
-@Preview(showBackground = true)
+
 @Composable
-fun CardPagerThird() {
+fun CardPagerCommon(
+    iconImg: Int,
+    titleText: String,
+    descText: String,
+    imgRes: Int,
+    btnText: String,
+    btnIcon: Int
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,17 +66,18 @@ fun CardPagerThird() {
                 ) {
                     // Icon
                     Image(
-                        painter = painterResource(id = R.drawable.ic_no_saving_header),
+                        painter = painterResource(id = iconImg),
                         contentDescription = "Icon",
                         modifier = Modifier
                             .height(24.dp)
+                            .background(lightGrayDrawableMenu, shape = RoundedCornerShape(50f))
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
 
                     // Title
                     Text(
-                        text = "Birikim Hesabı",
+                        text = titleText,
                         fontFamily = investment_semibold,
                         fontSize = 24.sp,
                         color = Color.Black
@@ -91,7 +87,7 @@ fun CardPagerThird() {
 
                     // Description
                     Text(
-                        text = "Hedef belirle, birikim yap.",
+                        text = descText,
                         fontFamily = investment_medium,
                         fontSize = 11.sp,
                         color = Color.Gray
@@ -100,7 +96,7 @@ fun CardPagerThird() {
 
                 // Right side Image
                 Image(
-                    painter = painterResource(id = R.drawable.img_no_saving),
+                    painter = painterResource(id = imgRes),
                     contentDescription = "Image",
                     modifier = Modifier
                         .padding(start = 12.dp)
@@ -111,8 +107,8 @@ fun CardPagerThird() {
 
             CustomButton(
                 onClick = { /* İşlem */ },
-                buttonText = "Birikim Hesabı Aç",
-                drawableEnd = R.drawable.abc_ic_go_search_api_material,
+                buttonText = btnText,
+                drawableEnd = btnIcon,
             )
         }
     }
